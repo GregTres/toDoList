@@ -1,14 +1,88 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
-      Ionic Blank
+      To do list
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
+  <div *ngFor="let element of elements">
+    <!-- if card is not checked => not done -->
+    <ion-card *ngIf="!element.done">
+      <ion-grid>
+        <ion-row class="center">
+          <ion-col class="center" size="1">
+            <ion-checkbox
+              [(ngModel)]="element.isChecked"
+              (ionChange)="checkChange(element)"
+            ></ion-checkbox>
+          </ion-col>
+          <ion-col size="11">
+            <ion-item lines="none">
+              <ion-label>{{ element.name }}</ion-label>
+              <ion-button (click)="onRemove(element)" fill="clear">
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-card-content *ngIf="element.description !== ''">
+        {{ element.description }}
+      </ion-card-content>
+    </ion-card>
+    <!-- if card is checked => done -->
+    <ion-card *ngIf="element.done" color="primary">
+      <ion-grid>
+        <ion-row class="center">
+          <ion-col class="center" size="1">
+            <ion-checkbox
+              [(ngModel)]="element.isChecked"
+              (ionChange)="checkChange(element)"
+            ></ion-checkbox>
+          </ion-col>
+          <ion-col size="11">
+            <ion-item color="primary" lines="none">
+              <ion-label>{{ element.name }}</ion-label>
+              <ion-button (click)="onRemove(element)" fill="clear">
+                <ion-icon
+                  color="secondary"
+                  slot="icon-only"
+                  name="trash"
+                ></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-card-content *ngIf="element.description !== ''">
+        {{ element.description }}
+      </ion-card-content>
+    </ion-card>
   </div>
 </ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="10">
+        <ion-input
+          placeholder="Add an element to the list"
+          #element
+        ></ion-input>
+      </ion-col>
+      <ion-col class="send-col" size="2">
+        <ion-button
+          shape="full"
+          size="small"
+          color="primary"
+          (click)="onAdd(element.value)"
+          ><ion-ripple-effect></ion-ripple-effect>Add</ion-button
+        >
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>
