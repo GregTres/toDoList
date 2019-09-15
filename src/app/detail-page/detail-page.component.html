@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      {{ element.name }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content
+  ><ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-textarea
+            placeholder="Description"
+            [(ngModel)]="element.description"
+          ></ion-textarea>
+        </ion-item>
+      </ion-col>
+    </ion-row> </ion-grid
+></ion-content>

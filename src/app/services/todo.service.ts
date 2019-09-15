@@ -8,7 +8,9 @@ export class TodoService {
   elementsSubject = new Subject<ToDoElem[]>();
 
   onAdd(element: string) {
-    this.elements.push(new ToDoElem(element, "", false, false));
+    this.elements.push(
+      new ToDoElem(element, "", false, false, this.elements.length)
+    );
     this.emitElementSubject();
   }
 
@@ -20,5 +22,15 @@ export class TodoService {
 
   emitElementSubject() {
     this.elementsSubject.next(this.elements);
+  }
+
+  getElementById(id: Number) {
+    var element: ToDoElem;
+    this.elements.forEach(elem => {
+      if (elem.id === id) {
+        element = elem;
+      }
+    });
+    return element;
   }
 }

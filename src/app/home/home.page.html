@@ -8,60 +8,60 @@
 
 <ion-content>
   <div *ngFor="let element of elements">
-    <!-- if card is not checked => not done -->
-    <ion-card *ngIf="!element.done">
-      <ion-grid>
-        <ion-row class="center">
-          <ion-col class="center" size="1">
-            <ion-checkbox
-              [(ngModel)]="element.isChecked"
-              (ionChange)="checkChange(element)"
-            ></ion-checkbox>
-          </ion-col>
-          <ion-col size="11">
-            <ion-item lines="none">
-              <ion-label>{{ element.name }}</ion-label>
-              <ion-button (click)="onRemove(element)" fill="clear">
-                <ion-icon slot="icon-only" name="trash"></ion-icon>
-              </ion-button>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-
-      <ion-card-content *ngIf="element.description !== ''">
-        {{ element.description }}
-      </ion-card-content>
-    </ion-card>
-    <!-- if card is checked => done -->
-    <ion-card *ngIf="element.done" color="primary">
-      <ion-grid>
-        <ion-row class="center">
-          <ion-col class="center" size="1">
-            <ion-checkbox
-              [(ngModel)]="element.isChecked"
-              (ionChange)="checkChange(element)"
-            ></ion-checkbox>
-          </ion-col>
-          <ion-col size="11">
-            <ion-item color="primary" lines="none">
-              <ion-label>{{ element.name }}</ion-label>
-              <ion-button (click)="onRemove(element)" fill="clear">
-                <ion-icon
-                  color="secondary"
-                  slot="icon-only"
-                  name="trash"
-                ></ion-icon>
-              </ion-button>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-
-      <ion-card-content *ngIf="element.description !== ''">
-        {{ element.description }}
-      </ion-card-content>
-    </ion-card>
+    <ion-grid>
+      <ion-row class="center">
+        <ion-col size="12" size-md="8">
+          <ion-grid
+            ><ion-row class="center"
+              ><ion-col class="center" size="1">
+                <ion-checkbox
+                  [(ngModel)]="element.isChecked"
+                  (ionChange)="checkChange(element)"
+                ></ion-checkbox>
+              </ion-col>
+              <ion-col size="11">
+                <!-- if card is not checked => not done -->
+                <ion-card
+                  *ngIf="!element.done"
+                  button
+                  [routerLink]="'/detail/' + element.id"
+                >
+                  <ion-item lines="none">
+                    <ion-label>{{ element.name }}</ion-label>
+                    <ion-button (click)="onRemove(element)" fill="clear">
+                      <ion-icon slot="icon-only" name="trash"></ion-icon>
+                    </ion-button>
+                  </ion-item>
+                  <ion-card-content *ngIf="element.description !== ''">
+                    {{ element.description }}
+                  </ion-card-content>
+                </ion-card>
+                <!-- if card is checked => done -->
+                <ion-card
+                  *ngIf="element.done"
+                  button
+                  [routerLink]="'/detail/' + element.id"
+                  color="primary"
+                >
+                  <ion-item lines="none" color="primary">
+                    <ion-label>{{ element.name }}</ion-label>
+                    <ion-chip outline>
+                      <ion-label>Done</ion-label>
+                    </ion-chip>
+                    <ion-button (click)="onRemove(element)" fill="clear">
+                      <ion-icon slot="icon-only" name="trash"></ion-icon>
+                    </ion-button>
+                  </ion-item>
+                  <ion-card-content *ngIf="element.description !== ''">
+                    {{ element.description }}
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
 </ion-content>
 
